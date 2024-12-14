@@ -30,14 +30,17 @@ userSchema.pre('save', async function (next) {
 
             if (!existingDocument) {
                 isUnique = true; // Identifier is unique, exit the loop
+                console.log("controller Reached");
             }
         }
 
         // Assign the generated identifier to the document
         this.uid = generatedIdentifier;
+        console.log("controller Reached assigned");
     }
     next();
 });
 
 const userModel = model('User', userSchema)
+
 export default userModel

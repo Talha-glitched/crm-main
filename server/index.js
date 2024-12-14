@@ -26,7 +26,7 @@ import inventoryRoutes from './routes/inventory.js'
 
 dotenv.config()
 const app = express()
-const CONNECTION_URL = process.env.ATLAS_URL
+const CONNECTION_URL = "mongodb+srv://rana_talha16:the.edgyguy23@cluster0.rykde1s.mongodb.net/"
 // const CONNECTION_URL = process.env.COMPASS_URL
 
 const PORT = process.env.PORT || 4000
@@ -56,7 +56,7 @@ app.use('/api/v1/refund', refundRoutes)
 app.use('/api/v1/voucher', voucherRoutes)
 app.use('/api/v1/deduction', deductionRoutes)
 app.use('/api/v1/trasncript', transcriptRoutes)
- 
+
 app.use((err, req, res, next) => {
     const message = err.message || 'Something went wrong.'
     const status = err.status || 500
