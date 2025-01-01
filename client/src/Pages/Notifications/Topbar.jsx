@@ -25,6 +25,7 @@ const Topbar = () => {
             <div className="flex justify-between items-center ">
                 <h1 className="text-primary-blue text-[32px] capitalize">Notifications</h1>
             </div>
+            
 
 
         </div>
