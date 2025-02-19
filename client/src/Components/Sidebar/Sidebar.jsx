@@ -50,6 +50,14 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
       childrens: [],
     },
     {
+      id: 9,
+      title: "Social Media Leads",
+      icon: <PiUsersThreeLight className="text-[25px]" />,
+      link: "/socialmedialeads",
+      role: ["employee", "manager", "super_admin"],
+      childrens: [],
+    },
+    {
       id: 3,
       title: "To Do Tasks",
       icon: <PiListChecksLight className="text-[25px]" />,
