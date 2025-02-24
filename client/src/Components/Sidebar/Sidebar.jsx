@@ -41,14 +41,27 @@ const Sidebar = ({ showSidebar, setShowSidebar }) => {
       role: ["employee", "manager", "super_admin"],
       childrens: [],
     },
+    
     {
       id: 2,
-      title: "Leads",
+      title: "All Leads",
       icon: <PiUsersThreeLight className="text-[25px]" />,
-      link: "/leads",
-      role: ["employee", "manager", "super_admin"],
-      childrens: [],
+      childrens: [
+        {
+          title: "Leads",
+          icon: <PiUsersThreeLight className="text-[25px]" />,
+          link: "/leads",
+          role: ["employee", "manager", "super_admin"],
+        },
+        {
+          title: "Social Media Leads",
+          icon: <PiUsersThreeLight className="text-[25px]" />,
+          link: "/socialmedialeads",
+          role: ["employee", "manager", "super_admin"],
+        },
+      ],
     },
+    
     {
       id: 3,
       title: "To Do Tasks",

@@ -36,6 +36,7 @@ import LeadRefunds from "./Pages/Leads/Refund/Refund";
 import VoucherPage from "./Pages/Vouchers/VoucherPage";
 import Home from "./Client Panel/Home";
 import TranscriptPage from "./Pages/Transcript/TranscriptPage";
+import SocialMediaLeads from "./Pages/Leads/SocialMediaLeads";
 
 const App = () => {
   ///////////////////////////////////// VARIABLES ////////////////////////////////////////
@@ -87,6 +88,7 @@ const App = () => {
                   <Route path="/auth/login" element={<Navigate to="/" />} />
                   <Route path="/myLeads" element={<Leads />} />
                   <Route path="/leads" exact element={<Leads />} />
+                  <Route path="/socialmedialeads" exact element={<SocialMediaLeads />} />
                   <Route path="/leads/call-reminders" element={<AllFollowUps />} />
                   <Route path="/leads/ledger" element={<Navigate to="/leads" />} />
                   <Route path="/leads/ledger/:leadId" element={<Ledger />} />
