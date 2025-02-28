@@ -4,7 +4,7 @@ import mongoose from 'mongoose'
 import cors from 'cors'
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
-
+import metaleads from './routes/metaleads.js'
 import uploadRoutes from './routes/upload.js'
 import authRoutes from './routes/auth.js'
 import userRoutes from './routes/user.js'
@@ -56,6 +56,7 @@ app.use('/api/v1/refund', refundRoutes)
 app.use('/api/v1/voucher', voucherRoutes)
 app.use('/api/v1/deduction', deductionRoutes)
 app.use('/api/v1/trasncript', transcriptRoutes)
+app.use("/api/leads", metaleads);
 
 app.use((err, req, res, next) => {
     const message = err.message || 'Something went wrong.'
