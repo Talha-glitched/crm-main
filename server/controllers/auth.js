@@ -11,7 +11,7 @@ import Lead from '../models/lead.js'
 
 export const register = async (req, res, next) => {
     try {
-
+console.log("Register Reached");
         let { firstName, lastName, username, phone, email, password, city, role } = req.body
 
         if (!firstName || !lastName || !username || !phone || !password || !city) return next(createError(400, 'Make sure to provide all the fields'))
