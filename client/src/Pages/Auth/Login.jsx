@@ -135,7 +135,7 @@ const Login = () => {
                     className="w-[20rem] h-[40px] px-[8px]"
                     style={{ fontFamily: "'Montserrat', sans-serif" }}
                     startAdornment={
-                      <InputAdornment>
+                      <InputAdornment position="end"> 
                         <button
                           style={showPasswordButton}
                           onClick={handleToggleVisibility}
@@ -167,7 +167,7 @@ const Login = () => {
                 <Snackbar
                   anchorOrigin={{ vertical, horizontal }}
                   key={vertical + horizontal}
-                  open={showSnackbar}
+                  open={showSnackbar.open}
                   autoHideDuration={2}
                   onClose={handleCloseSnackbar}>
                   <Alert

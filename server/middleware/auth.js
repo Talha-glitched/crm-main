@@ -1,5 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { createError } from '../utils/error.js';
+import { error } from 'console';
 
 export const verifyToken = async (req, res, next) => {
     try {
@@ -57,5 +58,6 @@ export const verifySuperAdmin = (req, res, next) => {
         });
     } catch (err) {
         next(createError(500, err.message));
+        console.log("error"+ error.message);
     }
 };

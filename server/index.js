@@ -23,7 +23,7 @@ import transcriptRoutes from './routes/transcript.js'
 import projectRoutes from './routes/project.js'
 import societyRoutes from './routes/society.js'
 import inventoryRoutes from './routes/inventory.js'
-
+import fbleadroutes from './routes/fbleadroute.js'
 dotenv.config()
 const app = express()
 const CONNECTION_URL = "mongodb+srv://rana_talha16:the.edgyguy23@cluster0.rykde1s.mongodb.net/"
@@ -56,14 +56,32 @@ app.use('/api/v1/refund', refundRoutes)
 app.use('/api/v1/voucher', voucherRoutes)
 app.use('/api/v1/deduction', deductionRoutes)
 app.use('/api/v1/trasncript', transcriptRoutes)
-app.use("/api/leads", metaleads);
-
+app.use("/api/leads", metaleads); 
+app.use("/",fbleadroutes);
 app.use((err, req, res, next) => {
     const message = err.message || 'Something went wrong.'
     const status = err.status || 500
     res.status(status).json({ message, status, stack: err.stack })
     next()
-})
+})  
+
+// app.get('/webhook', (req, res) => {
+//     const VERIFY_TOKEN = process.env.FB_VERIFY_TOKEN;
+  
+//     // Facebook verification parameters
+//     const mode = req.query['hub.mode'];
+//     const token = req.query['hub.verify_token'];
+//     const challenge = req.query['hub.challenge'];
+  
+//     // Check if mode & token match
+//     if (mode === 'subscribe' && token === VERIFY_TOKEN) {
+//       console.log('Webhook verified successfully!');
+//       res.status(200).send(challenge); // Facebook expects this response
+//     } else {
+//       console.error('Webhook verification failed!');
+//       res.sendStatus(403); // Forbidden
+//     }
+//   });
 
 mongoose.connect(CONNECTION_URL)
     .then(() => app.listen(PORT, () => console.log('listening at port ' + PORT)))
