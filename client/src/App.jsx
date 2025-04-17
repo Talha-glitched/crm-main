@@ -31,128 +31,106 @@ import {
   Transcript,
 } from "./Pages";
 import { Navbar, Sidebar } from "./Components";
+import { useSelector } from "react-redux";
 import LeadRefunds from "./Pages/Leads/Refund/Refund";
 import VoucherPage from "./Pages/Vouchers/VoucherPage";
 import Home from "./Client Panel/Home";
 import TranscriptPage from "./Pages/Transcript/TranscriptPage";
 import SocialMediaLeads from "./Pages/Leads/SocialMediaLeads";
-import { useSelector } from "react-redux";
 
 const App = () => {
+  ///////////////////////////////////// VARIABLES ////////////////////////////////////////
   const { loggedUser } = useSelector((state) => state.user);
   const { pathname } = useLocation();
+  const pathArr = pathname.split("/").filter((item) => item != "");
+  const showSidebarForSettings = !pathArr.includes("/settings");
+
+  ///////////////////////////////////// STATES ////////////////////////////////////////
   const [showSidebar, setShowSidebar] = useState(true);
 
-  // Adjust sidebar visibility on window resize
+  ///////////////////////////////////// USE EFFECTS ////////////////////////////////////////
   useEffect(() => {
     if (window.innerWidth < 768) setShowSidebar(false);
     else setShowSidebar(true);
   }, [window.innerWidth]);
 
+  ///////////////////////////////////// Functions ////////////////////////////////////////
+
   return (
-    <div className="flex flex-col w-full h-screen bg-[#f6f9fa]">
-      <Routes>
-        {/* Public Authentication Routes */}
-        <Route path="/auth/*" element={<AuthRoutes loggedUser={loggedUser} />} />
-
-        {/* Protected Routes for non-client users */}
-        {loggedUser && loggedUser.role !== "client" && (
-          <Route path="/*" element={<ProtectedRoutes showSidebar={showSidebar} />} />
-        )}
-
-        {/* Protected Routes for client users */}
-        {loggedUser && loggedUser.role === "client" && (
-          <Route path="/*" element={<ClientRoutes />} />
-        )}
-
-        {/* Fallback: if no user is logged in, redirect to /auth/login */}
-        {!loggedUser && <Route path="/*" element={<Navigate to="/auth/login" />} />}
-      </Routes>
-
-      {/* Download routes (can be outside the main layout) */}
-      <Routes>
-        <Route path="/download/transcript" element={<TranscriptPage />} />
-        <Route path="/download/voucher" element={<VoucherPage />} />
-      </Routes>
-    </div>
-  );
-};
-
-// Authentication Routes Component
-const AuthRoutes = ({ loggedUser }) => {
-  // If user is already logged in, redirect to home
-  if (loggedUser) return <Navigate to="/" replace />;
-  return (
-    <Routes>
-      <Route path="login" element={<Login />} />
-      <Route path="register" element={<Register />} />
-      <Route path="forgot_password" element={<ForgotPassword />} />
-      <Route path="newpassword" element={<ResetPassword />} />
-      <Route path="forgot_password/enter_code" element={<InputCode />} />
-      <Route path="change_password" element={<Navigate to="/auth/register" replace />} />
-      <Route path="*" element={<Navigate to="/auth/login" replace />} />
-    </Routes>
-  );
-};
-
-// Protected Routes for non-client users with Sidebar and Navbar
-const ProtectedRoutes = ({ showSidebar }) => {
-  return (
-    <div className={`flex h-screen font-primary ${window.location.pathname.includes("/client/") || window.location.pathname.includes("download") ? "hidden" : "visible"}`}>
-      <Sidebar showSidebar={showSidebar} setShowSidebar={() => {}} />
-      <div className="flex flex-col w-full overflow-y-scroll">
-        <Navbar showSidebar={showSidebar} setShowSidebar={() => {}} />
-        <div className="flex p-[1rem] w-full">
+    <div>
+      <div className="flex flex-col w-full h-screen bg-[#f6f9fa]">
+        {!loggedUser ? (
+          <div className={`flex justify-center items-center w-full `}>
+            <Routes>
+              <Route exact path="/auth/register" element={<Register />} />
+              <Route exact path="/auth/login" element={<Login />} />
+              <Route exact path="/auth/forgot_password" element={<ForgotPassword />} />
+              <Route exact path="/auth/newpassword" element={<ResetPassword />} />
+              <Route exact path="/auth/forgot_password/enter_code" element={<InputCode />} />
+              <Route exact path="/auth/change_password" element={<Navigate to="/auth/register" />} />
+              <Route path="/" element={<Navigate to="/auth/login" />} />
+              <Route path="/:anyotherRoutes" element={<Navigate to="/auth/login" />} />
+            </Routes>
+          </div>
+        ) : loggedUser.role != "client" ? (
+          <div
+            className={`flex h-screen font-primary ${`${pathname.includes("/client/") || pathname.includes("download") ? "hidden" : "visible"
+              }`}`}>
+            <Sidebar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
+            <div
+              className={`${showSidebar ? "w-full " : "w-full "} flex flex-col overflow-y-scroll `}>
+              <Navbar showSidebar={showSidebar} setShowSidebar={setShowSidebar} />
+              <div className="flex p-[1rem] w-full">
+                <Routes>
+                  <Route path="/" element={<DashBoard />} />
+                  <Route path="/dashboard" element={<DashBoard />} />
+                  <Route path="/auth/register" element={<Navigate to="/" />} />
+                  <Route path="/auth/login" element={<Navigate to="/" />} />
+                  <Route path="/myLeads" element={<Leads />} />
+                  <Route path="/leads" exact element={<Leads />} />
+                  <Route path="/socialmedialeads" exact element={<SocialMediaLeads />} />
+                  <Route path="/leads/call-reminders" element={<AllFollowUps />} />
+                  <Route path="/leads/ledger" element={<Navigate to="/leads" />} />
+                  <Route path="/leads/ledger/:leadId" element={<Ledger />} />
+                  <Route path="/leads/:leadId" element={<Lead />} />
+                  <Route path="/leads/followUps" element={<Navigate to="/leads" />} />
+                  <Route path="/leads/followUps/:leadId" element={<FollowUps />} />
+                  <Route path="/leads/refund" element={<Navigate to="/leads" />} />
+                  <Route path="/leads/refund/:leadId" element={<LeadRefunds />} />
+                  <Route path="/tasks" element={<Tasks />} />
+                  <Route path="/employees" element={<Employees />} />
+                  <Route path="/inventories" element={<Inventories />} />
+                  <Route path="/societies" element={<Societies />} />
+                  <Route path="/projects" element={<Projects />} />
+                  <Route path="/clients" element={<Clients />} />
+                  <Route path="/users/:userId" element={<User />} />
+                  <Route path="/authorization/request" element={<Request />} />
+                  <Route path="/authorization/refund" element={<Refunds />} />
+                  <Route path="/cashbook" element={<CashBook />} />
+                  <Route path="/cashbook/create" element={<CreateCashBook />} />
+                  <Route path="/view/cashbook" element={<ViewCashBook />} />
+                  <Route path="/sales" element={<Sales />} />
+                  <Route path="/sales/create" element={<CreateSale />} />
+                  <Route path="/transcript" element={<Transcript />} />
+                  <Route path="/voucher" element={<Vouchers showSidebar={showSidebar} />} />
+                  <Route path="/notifications" element={<Notifications />} />
+                  <Route path="/client" element={<Home />} />
+                </Routes>
+              </div>
+            </div>
+          </div>
+        ) : (
           <Routes>
-            <Route path="/" element={<DashBoard />} />
-            <Route path="/dashboard" element={<DashBoard />} />
-            <Route path="/auth/register" element={<Navigate to="/" replace />} />
-            <Route path="/auth/login" element={<Navigate to="/" replace />} />
-            <Route path="/myLeads" element={<Leads />} />
-            <Route path="/leads" element={<Leads />} />
-            <Route path="/socialmedialeads" element={<SocialMediaLeads />} />
-            <Route path="/leads/call-reminders" element={<AllFollowUps />} />
-            <Route path="/leads/ledger" element={<Navigate to="/leads" replace />} />
-            <Route path="/leads/ledger/:leadId" element={<Ledger />} />
-            <Route path="/leads/:leadId" element={<Lead />} />
-            <Route path="/leads/followUps" element={<Navigate to="/leads" replace />} />
-            <Route path="/leads/followUps/:leadId" element={<FollowUps />} />
-            <Route path="/leads/refund" element={<Navigate to="/leads" replace />} />
-            <Route path="/leads/refund/:leadId" element={<LeadRefunds />} />
-            <Route path="/tasks" element={<Tasks />} />
-            <Route path="/employees" element={<Employees />} />
-            <Route path="/inventories" element={<Inventories />} />
-            <Route path="/societies" element={<Societies />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/clients" element={<Clients />} />
-            <Route path="/users/:userId" element={<User />} />
-            <Route path="/authorization/request" element={<Request />} />
-            <Route path="/authorization/refund" element={<Refunds />} />
-            <Route path="/cashbook" element={<CashBook />} />
-            <Route path="/cashbook/create" element={<CreateCashBook />} />
-            <Route path="/view/cashbook" element={<ViewCashBook />} />
-            <Route path="/sales" element={<Sales />} />
-            <Route path="/sales/create" element={<CreateSale />} />
-            <Route path="/transcript" element={<Transcript />} />
-            <Route path="/voucher" element={<Vouchers showSidebar={showSidebar} />} />
-            <Route path="/notifications" element={<Notifications />} />
-            {/* Fallback for unknown routes */}
-            <Route path="*" element={<Navigate to="/" replace />} />
+            <Route path="/" element={<Home />} />
           </Routes>
-        </div>
+        )}
+
+        <Routes>
+          <Route path="/download/transcript" element={<TranscriptPage />} />
+          <Route path="/download/voucher" element={<VoucherPage />} />
+        </Routes>
       </div>
     </div>
-  );
-};
-
-// Protected Routes for client users
-const ClientRoutes = () => {
-  return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      {/* Add any additional client routes here */}
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
   );
 };
 

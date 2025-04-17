@@ -276,51 +276,102 @@ export const filterLead = async (req, res, next) => {
     }
 };
 
+import { generateEmail } from '../utils/generateEmail.js';
+import { sendEmail } from '../utils/sendEmail.js';
+
 export const createLead = async (req, res, next) => {
     try {
-        const {city, priority, property, status, source, description, count, clientName, clientPhone} = req.body;
-        const { followUpStatus, followUpDate, remarks } = req.body  // for followup
-
-        const foundLead = await User.findOne({ phone: clientPhone });
-
-        const leadsToCreate = Number(count) || 1;
-        const createdLeads = [];
-
-        for (let i = 0; i < leadsToCreate; i++) {
-            const newLead = await Lead.create({
-                client: foundLead ? foundLead._id : null,
-                city,
-                clientName,
-                clientPhone,
-                priority,
-                property,
-                status,
-                source,
-                description,
-                allocatedTo: [req.user?._id],
-            });
-
-            await FollowUp.create({ status: followUpStatus, followUpDate, remarks, leadId: newLead._id })
-
-
-            const populatedLead = await Lead.findById(newLead._id)
-                .populate('client')
-                .populate('property')
-                .populate('allocatedTo')
-                .exec();
-
-            createdLeads.push(populatedLead);
-        }
-
-        res.status(200).json({
-            result: createdLeads,
-            message: `Lead(s) created successfully (${createdLeads.length} lead(s) created)`,
-            success: true,
+      // Destructure and rename clientEmail to avoid shadowing
+      const {
+        city,
+        priority,
+        property,
+        status,
+        source,
+        description,
+        count = 1,
+        clientEmail: clientEmailFromBody,
+        clientName,
+        clientPhone,
+      } = req.body;
+      const { followUpStatus, followUpDate, remarks } = req.body;
+  
+      console.log('🔥 createLead payload:', {
+        city, priority, property, status, source,
+        description, count, clientEmailFromBody, clientName, clientPhone,
+      });
+      console.log('👤 Authenticated user:', req.user?._id);
+  
+      // Find existing User (optional)
+      const foundUser = await User.findOne({ phone: clientPhone });
+  
+      const leadsToCreate = Number(count) || 1;
+      const createdLeads = [];
+  
+      for (let i = 0; i < leadsToCreate; i++) {
+        // Build lead data
+        const leadData = {
+          client: foundUser?._id || null,
+          city,
+          priority,
+          property,
+          status,
+          source,
+          description,
+          clientName,
+          clientPhone,
+          clientEmail: clientEmailFromBody,
+          allocatedTo: [req.user._id],
+        };
+  
+        console.log('➡️ Creating Lead:', leadData);
+        const newLead = await Lead.create(leadData);
+        console.log('✅ Lead created _id:', newLead._id);
+  
+        // Create initial follow‑up
+        await FollowUp.create({
+          status: followUpStatus,
+          followUpDate,
+          remarks,
+          leadId: newLead._id,
         });
+  
+        // Populate for project title lookup
+        const populatedLead = await Lead.findById(newLead._id)
+          .populate('property', 'title')
+          .populate('allocatedTo', '_id')
+          .exec();
+  
+        // Send AI‑generated email if we have an address
+        if (clientEmailFromBody && clientName) {
+          try {
+            const projectTitle = populatedLead.property?.title || 'our project';
+            const aiContent = await generateEmail(clientName, projectTitle, description);
+            await sendEmail(
+              clientEmailFromBody,
+              `Thank you for your interest in ${projectTitle}`,
+              aiContent
+            );
+            console.log(`✉️  Email sent to ${clientEmailFromBody}`);
+          } catch (emailErr) {
+            console.error('❌ Failed to send email:', emailErr);
+          }
+        }
+  
+        createdLeads.push(populatedLead);
+      }
+  
+      return res.status(201).json({
+        result: createdLeads,
+        message: `Lead(s) created successfully (${createdLeads.length})`,
+        success: true,
+      });
     } catch (err) {
-        next(createError(500, err.message));
+      console.error('❌ createLead error:', err);
+      return next(createError(500, err.message));
     }
-};
+  };
+
 
 export const updateLead = async (req, res, next) => {
     try {

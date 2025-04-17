@@ -38,6 +38,7 @@ const CreateLead = ({ setOpen, open, scroll }) => {
   let initialLeadState = {
     clientName: "",
     clientPhone: "",
+    clientEmail: "",
     city: "",
     description: "",
     property: "",
@@ -97,6 +98,7 @@ const CreateLead = ({ setOpen, open, scroll }) => {
     const {
       clientName,
       clientPhone,
+      clientEmail,
       city,
       priority,
       status,
@@ -174,6 +176,20 @@ const CreateLead = ({ setOpen, open, scroll }) => {
                   />
                 </td>
               </tr>
+              <tr>
+                <td className="pb-4 text-lg">Email</td>
+                <td className="pb-4">
+                  <TextField
+                    name="clientEmail"
+                    value={leadData.clientEmail}
+                    onChange={(e) => handleChange("clientEmail", e.target.value)}
+                    type="email"
+                    size="small"
+                    fullWidth
+                  />
+                </td>
+              </tr>
+
             </table>
           </div>
 
@@ -338,7 +354,7 @@ const CreateLead = ({ setOpen, open, scroll }) => {
                     <option value="Call back Later">Call Back Later</option>
                     <option value="Interested">Interested</option>
                   </CFormSelect>
-                
+
                 </td>
               </tr>
               <tr>

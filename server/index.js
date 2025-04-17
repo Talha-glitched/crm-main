@@ -56,13 +56,13 @@ app.use('/api/v1/refund', refundRoutes)
 app.use('/api/v1/voucher', voucherRoutes)
 app.use('/api/v1/deduction', deductionRoutes)
 app.use('/api/v1/trasncript', transcriptRoutes)
-app.use("/api/leads", metaleads); 
+app.use("/api/leadssa", metaleads); 
 app.use("/",fbleadroutes);
 app.use((err, req, res, next) => {
     const message = err.message || 'Something went wrong.'
     const status = err.status || 500
     res.status(status).json({ message, status, stack: err.stack })
-    next()
+    next() 
 })  
 
 // app.get('/webhook', (req, res) => {
