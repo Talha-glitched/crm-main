@@ -85,7 +85,7 @@ export const filterSociety = (filters) => API.get(`/society/filter?${objectToQue
 export const createSociety = (societyData) => API.post(`/society/create`, societyData)
 export const updateSociety = (societyId, societyData) => API.put(`/society/update/${societyId}`, societyData)
 export const deleteSociety = (societyId) => API.delete(`/society/delete/${societyId}`)
-
+ 
 // INVENTORY
 export const getInventory = (inventoryId) => API.get(`/inventory/get/single/${inventoryId}`)
 export const getInventories = () => API.get(`/inventory/get/all`)
