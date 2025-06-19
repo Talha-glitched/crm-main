@@ -84,11 +84,11 @@ export const createLead = (leadData, navigate) => async (dispatch) => {
         dispatch(createLeadReducer(data.result))
         navigate('/leads')
 
-        const {loggedUser} = useSelector(state=>state.user)
-        if(loggedUser.role == 'employee'){
+        const { loggedUser } = useSelector(state => state.user)
+        if (loggedUser.role == 'employee') {
             dispatch(getEmployeeLeads())
         }
-        else{
+        else {
             dispatch(getLeads())
         }
 
