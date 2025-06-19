@@ -13,7 +13,7 @@ import EditModal from "./EditModal";
 import DeleteModal from "./DeleteModal";
 import UpdateStatusModal from "./UpdateStatus";
 import ShiftLeadModal from "./ShiftLead";
-import ShareLeadModal from "./ShareLead";
+import ShareLeadModal from "./shareLead";
 import Filter from "./Filter";
 import Kanban from "./Kanban/Kanban";
 import Attachments from "./Attachments/Attachments";
@@ -361,7 +361,7 @@ function SocialMediaLeads({ type, showSidebar }) {
         setIsFiltered={setIsFiltered}
         isFiltered={isFiltered}
       />
-      
+
       {options.isKanbanView ? (
         <Kanban options={options} setOptions={setOptions} />
       ) : (
