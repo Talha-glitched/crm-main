@@ -78,8 +78,7 @@ const LeadsStat = () => {
             onChange={handleChange}
             fullWidth
             size="small">
-            <MenuItem value="degree">Degree Vise</MenuItem>
-            <MenuItem value="visa">VISA Vise</MenuItem>
+
             <MenuItem value="status">Status Vise</MenuItem>
             <MenuItem value="priority">Priority Vise</MenuItem>
             <MenuItem value="source">Source Wise</MenuItem>
