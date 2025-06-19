@@ -64,7 +64,7 @@ app.use((err, req, res, next) => {
     res.status(status).json({ message, status, stack: err.stack })
     next() 
 })  
-
+ 
 // app.get('/webhook', (req, res) => {
 //     const VERIFY_TOKEN = process.env.FB_VERIFY_TOKEN;
   
@@ -84,5 +84,5 @@ app.use((err, req, res, next) => {
 //   });
 
 mongoose.connect(CONNECTION_URL)
-    .then(() => app.listen(PORT, () => console.log('listening at port ' + PORT)))
+    .then(() => app.listen(PORT, () => console.log(' MONGODB IS connected and listening at port ' + PORT)))
     .catch((err) => console.log('error in connection with mongoDB = \n', err))

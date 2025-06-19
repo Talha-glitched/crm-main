@@ -6,4 +6,5 @@ export const generateUniqueIdentifier = () => {
     const randomIdentifier = Math.floor(Math.random() * (max - min + 1)) + min;
 
     return String(randomIdentifier); // Convert it to a string
-}
+} 
+ 

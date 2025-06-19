@@ -27,9 +27,11 @@ const VoucherPage = ({ }) => {
           const imgHeight = canvas.height
           const ratio = Math.min(pdfWidth / imgWidth, pdfHeight / imgHeight);
           const imgX = (pdfWidth - imgWidth * ratio) / 2;
-          const imgY = 100;
+          const imgY = 10;
           pdf.addImage(imgData, "PNG", imgX, imgY, imgWidth * ratio, imgHeight * ratio);
-          pdf.save("download.pdf");
+          pdf.setFontSize(12);
+          pdf.text("EGS", pdfWidth / 2, pdfHeight - 15, { align: 'center' });
+          pdf.save("voucher.pdf");
           navigate('/voucher')
         })
         .catch((err) => {
@@ -46,9 +48,9 @@ const VoucherPage = ({ }) => {
 
 
         <div className="flex justify-between items w-full relative py-[1rem] ">
-        <div className="flex justify-start">
-          <img src="/images/adotmarketinglogo.png" className="h-20 mb-5" />
-        </div>
+          <div className="flex justify-start">
+            <img src="/images/adotmarketinglogo.png" className="h-20 mb-5" />
+          </div>
           <div className=" ">
             <table className="border-[1px] border-black w-full " >
               <tr className="text-center border-[1px] border-black">
@@ -77,7 +79,7 @@ const VoucherPage = ({ }) => {
               <td className="text-center border-b-[1px] border-x-[1px] border-black h-[2rem] w-[13rem] pb-4">{voucher?.phone}</td>
             </tr>
             <tr className='w-full' >
-              <td className="px-[1px] border-b-[1px] border-x-[1px] border-black h-[2rem] pb-4 text-red-700"  colSpan={3}>
+              <td className="px-[1px] border-b-[1px] border-x-[1px] border-black h-[2rem] pb-4 text-red-700" colSpan={3}>
                 * {voucher?.note}
               </td>
             </tr>
@@ -135,10 +137,11 @@ const VoucherPage = ({ }) => {
         <div className="flex justify-center pt-10">
           <QRCode value={`Name: ${voucher.clientName}\nPhone: ${voucher.phone}\nCNIC: ${voucher.CNIC}\nAmount Paid: ${voucher.paid}\nPurpose: This person has applied for the degree of ${voucher.degree == 'other' ? voucher.degreeName : voucher.degree} with major as ${voucher.major} on ${voucher.visa} in ${voucher.country}.`} size={128} />
         </div>
-        
-        <div className="flex justify-center flex-col py-2">
-          <p className="text-center">&copy; Right Reserverd by A. Consultant</p>
-          <p className="text-center">2nd Floor, Plaza 6-A, Vilas Road, Main Boulevard, Park View City, Lahore</p>
+
+        <div className="flex justify-center items-center mt-10">
+          <div className="flex flex-col justify-center items-center gap-2">
+            <h2 className="text-xl font-semibold">Thank you for your business</h2>
+          </div>
         </div>
       </div>
 

@@ -10,7 +10,7 @@ export const getLeads = () => async (dispatch) => {
         dispatch(getLeadsReducer(data.result))
         dispatch(end())
     } catch (err) {
-        dispatch(error(err.message))
+        dispatch(error(err.message))  
     }
 }
 

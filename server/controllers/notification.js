@@ -71,9 +71,9 @@ export const createRequestNotification = async (req, res, next) => {
         if (Boolean(isAlreadySend)) return res.status(201).json({ message: 'Notification with this email already created', success: true })
 
         const notification = await Notification.create({
-            title: 'Registeration Approval',
-            type: 'registeration-approval',
-            description: 'Need approval for the registeration',
+            title: 'Registration Approval',
+            type: 'registration-approval',
+            description: 'Need approval for the registration',
             data: { firstName, lastName, username, phone, email, password }
         })
 
