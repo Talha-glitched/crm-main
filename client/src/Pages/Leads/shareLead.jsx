@@ -2,7 +2,7 @@ import { Close } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { shareLead, } from "../../redux/action/lead";
+import { shareLead } from "../../redux/action/lead";
 import { getEmployees } from "../../redux/action/user";
 import {
   Dialog,
