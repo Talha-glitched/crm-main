@@ -11,7 +11,7 @@ import { format } from "timeago.js";
 import { getLeadReducer, getLeadsReducer } from "../../redux/reducer/lead";
 import UpateStatusModal from "./UpdateStatus";
 import ShiftLeadModal from "./ShiftLead";
-import ShareLeadModal from "./ShareLead";
+import ShareLeadModal from "./shareLead";
 import Filter from "./Filter";
 import Kanban from "./Kanban/Kanban";
 import { CCallout } from "@coreui/react";
