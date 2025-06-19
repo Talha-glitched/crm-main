@@ -21,7 +21,7 @@ export async function generateEmail(clientName, projectName, details) {
 Write a short, friendly, professional onboarding email to a client named ${clientName}. 
 The email should highlight their interest in "${projectName}" and reference the following details: "${details}".
 End with an encouraging note and a warm sign-off.
-Respond with only the email body, without extra formatting.
+Respond with only the email body, without extra formatting so that it can be directly sent.
 `;
 
   try {
@@ -43,6 +43,6 @@ Respond with only the email body, without extra formatting.
   } catch (error) {
     console.error("❌ OpenAI email generation error:", error);
     // Fallback template if AI fails
-    return `Hi ${clientName},\n\nThank you for your interest in ${projectName}. Our team will be in touch shortly to assist with next steps.\n\nBest regards,\nYour Company Name`;
+    return `Hi ${clientName},\n\nThank you for your interest in ${projectName}. Our team will be in touch shortly to assist with next steps.\n\nBest regards,\nEGS`;
   }
-}
+} 
