@@ -1,7 +1,7 @@
-export const baseURL = 'http://localhost:4000/api/v1'
-//export const baseURL = 'https://crm-main.onrender.com/api/v1'
-export const rootURL = 'http://localhost:4000'
-//export const rootURL = 'https://crm-main.onrender.com'
+// export const baseURL = 'http://localhost:4000/api/v1'
+export const baseURL = 'https://crm-main.onrender.com/api/v1'
+// export const rootURL = 'http://localhost:4000'
+export const rootURL = 'https://crm-main.onrender.com'
 export const pakistanCities = [
   "Abbottabad",
   "Adilpur",
