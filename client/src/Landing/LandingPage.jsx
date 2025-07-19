@@ -1,11 +1,12 @@
 // Responsive, edge-to-edge landing page layout
 import React from 'react';
-import { 
-  Users, 
-  Zap, 
-  MessageSquare, 
-  Shield, 
-  Github, 
+import { baseURL } from '../constant';
+import {
+  Users,
+  Zap,
+  MessageSquare,
+  Shield,
+  Github,
   Linkedin,
   ChevronDown,
   Star,
@@ -61,14 +62,14 @@ function LandingPage() {
             </div>
             {/* Auth Buttons */}
             <div className="flex items-center space-x-4">
-              <a 
-                href="/auth/login" 
+              <a
+                href={`${baseURL.replace('/api/v1', '')}/auth/login`}
                 className="text-gray-700 hover:text-pink-500 px-3 py-2 text-sm font-medium transition-colors"
               >
                 Login
               </a>
-              <a 
-                href="/auth/register" 
+              <a
+                href={`${baseURL.replace('/api/v1', '')}/auth/register`}
                 className="bg-pink-400 hover:bg-pink-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
               >
                 Create Account
@@ -86,7 +87,7 @@ function LandingPage() {
               <div className="space-y-8">
                 <div className="space-y-4">
                   <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 leading-tight">
-                    Free, Open-Source CRM to 
+                    Free, Open-Source CRM to
                     <span className="text-pink-500"> Grow Your Business</span>
                   </h1>
                   <p className="text-xl text-gray-600 leading-relaxed">
@@ -94,13 +95,13 @@ function LandingPage() {
                   </p>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <a 
-                    href="/auth/login" 
+                  <a
+                    href={`${baseURL.replace('/api/v1', '')}/auth/login`}
                     className="bg-pink-400 hover:bg-pink-500 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all transform hover:scale-105 text-center"
                   >
                     Use CRM
                   </a>
-                  <button 
+                  <button
                     onClick={scrollToFeatures}
                     className="border-2 border-pink-400 text-pink-500 hover:bg-pink-400 hover:text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all flex items-center justify-center"
                   >
@@ -283,8 +284,8 @@ function LandingPage() {
             <div className="grid md:grid-cols-3 gap-8">
               <div className="text-center">
                 <div className="relative mb-6">
-                  <img 
-                    src={UmarImg} 
+                  <img
+                    src={UmarImg}
                     alt="Muhammad Umar"
                     className="w-32 h-32 rounded-full mx-auto object-cover border-4 border-pink-100"
                   />
@@ -296,8 +297,8 @@ function LandingPage() {
 
               <div className="text-center">
                 <div className="relative mb-6">
-                  <img 
-                    src={TalhaImg} 
+                  <img
+                    src={TalhaImg}
                     alt="Muhammad Talha"
                     className="w-32 h-32 rounded-full mx-auto object-cover border-4 border-pink-100"
                   />
@@ -309,8 +310,8 @@ function LandingPage() {
 
               <div className="text-center">
                 <div className="relative mb-6">
-                  <img 
-                    src={HasnainImg} 
+                  <img
+                    src={HasnainImg}
                     alt="Muhammad Hasnain"
                     className="w-32 h-32 rounded-full mx-auto object-cover border-4 border-pink-100"
                   />
@@ -334,8 +335,8 @@ function LandingPage() {
             <p className="text-xl text-pink-100 mb-8">
               Join thousands of businesses already using our free CRM solution.
             </p>
-            <a 
-              href="/auth/login" 
+            <a
+              href={`${baseURL.replace('/api/v1', '')}/auth/login`}
               className="bg-white text-pink-500 hover:bg-gray-100 px-8 py-4 rounded-lg text-lg font-semibold transition-all transform hover:scale-105 inline-block"
             >
               Use CRM
@@ -384,8 +385,8 @@ function LandingPage() {
                 <h3 className="text-lg font-semibold mb-4">Stay Updated</h3>
                 <p className="text-gray-400 mb-4 text-sm">Get the latest updates and features.</p>
                 <div className="flex">
-                  <input 
-                    type="email" 
+                  <input
+                    type="email"
                     placeholder="Enter your email"
                     className="bg-gray-800 text-white px-4 py-2 rounded-l-lg flex-1 focus:outline-none focus:ring-2 focus:ring-pink-400"
                   />
