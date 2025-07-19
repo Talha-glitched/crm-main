@@ -30,7 +30,13 @@ const CONNECTION_URL = "mongodb+srv://rana_talha16:the.edgyguy23@cluster0.rykde1
 // const CONNECTION_URL = process.env.COMPASS_URL
 
 const PORT = process.env.PORT || 4000
-app.use(cors())
+app.use(cors({
+  origin: [
+    
+    'https://crm-main-7s81.vercel.app/' // <-- use your actual deployed frontend URL
+  ],
+  credentials: true
+}));
 app.use(express.json())
 
 // serving static files | images
