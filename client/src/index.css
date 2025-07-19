@@ -82,3 +82,7 @@
 #filebase_image > input[type="file"] {
   display: none;
 }
+
+body {
+  background: #fff;
+}

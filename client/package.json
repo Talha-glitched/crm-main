@@ -37,6 +37,7 @@
     "js-cookie": "^3.0.5",
     "jsbarcode": "^3.11.5",
     "jspdf": "^2.5.1",
+    "lucide-react": "^0.525.0",
     "moment": "^2.29.4",
     "number-to-words": "^1.2.4",
     "pdfmake": "^0.2.7",

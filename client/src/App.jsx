@@ -37,6 +37,7 @@ import VoucherPage from "./Pages/Vouchers/VoucherPage";
 import Home from "./Client Panel/Home";
 import TranscriptPage from "./Pages/Transcript/TranscriptPage";
 import SocialMediaLeads from "./Pages/Leads/SocialMediaLeads";
+import LandingPage from "./Landing/LandingPage";
 
 const App = () => {
   ///////////////////////////////////// VARIABLES ////////////////////////////////////////
@@ -68,7 +69,7 @@ const App = () => {
               <Route exact path="/auth/newpassword" element={<ResetPassword />} />
               <Route exact path="/auth/forgot_password/enter_code" element={<InputCode />} />
               <Route exact path="/auth/change_password" element={<Navigate to="/auth/register" />} />
-              <Route path="/" element={<Navigate to="/auth/login" />} />
+              <Route path="/" element={<LandingPage />} />
               <Route path="/:anyotherRoutes" element={<Navigate to="/auth/login" />} />
             </Routes>
           </div>
