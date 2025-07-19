@@ -24,8 +24,10 @@ import {
 import UmarImg from '../assets/Umar.jpg';
 import TalhaImg from '../assets/Talha.png';
 import HasnainImg from '../assets/Hasnain.jpg';
+import { Link, useNavigate } from 'react-router-dom';
 
 function LandingPage() {
+  const navigate = useNavigate();
   const scrollToFeatures = () => {
     document.getElementById('features').scrollIntoView({ behavior: 'smooth' });
   };
@@ -62,18 +64,18 @@ function LandingPage() {
             </div>
             {/* Auth Buttons */}
             <div className="flex items-center space-x-4">
-              <a
-                href={`${baseURL.replace('/api/v1', '')}/auth/login`}
+              <Link
+                to="/auth/login"
                 className="text-gray-700 hover:text-pink-500 px-3 py-2 text-sm font-medium transition-colors"
               >
                 Login
-              </a>
-              <a
-                href={`${baseURL.replace('/api/v1', '')}/auth/register`}
+              </Link>
+              <Link
+                to="/auth/register"
                 className="bg-pink-400 hover:bg-pink-500 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors"
               >
                 Create Account
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -95,12 +97,12 @@ function LandingPage() {
                   </p>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-4">
-                  <a
-                    href={`${baseURL.replace('/api/v1', '')}/auth/login`}
+                  <button
+                    onClick={() => navigate('/auth/login')}
                     className="bg-pink-400 hover:bg-pink-500 text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all transform hover:scale-105 text-center"
                   >
                     Use CRM
-                  </a>
+                  </button>
                   <button
                     onClick={scrollToFeatures}
                     className="border-2 border-pink-400 text-pink-500 hover:bg-pink-400 hover:text-white px-8 py-4 rounded-lg text-lg font-semibold transition-all flex items-center justify-center"
@@ -335,12 +337,12 @@ function LandingPage() {
             <p className="text-xl text-pink-100 mb-8">
               Join thousands of businesses already using our free CRM solution.
             </p>
-            <a
-              href={`${baseURL.replace('/api/v1', '')}/auth/login`}
+            <button
+              onClick={() => navigate('/auth/login')}
               className="bg-white text-pink-500 hover:bg-gray-100 px-8 py-4 rounded-lg text-lg font-semibold transition-all transform hover:scale-105 inline-block"
             >
               Use CRM
-            </a>
+            </button>
           </div>
         </div>
       </section>
