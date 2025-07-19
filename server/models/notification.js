@@ -1,7 +1,7 @@
 import { generateUniqueIdentifier } from '../utils/utils.js'
 import { Schema, model } from 'mongoose'
 
-const notificationSchema = Schema({
+const notificationSchema = Schema({   
     title: { type: String, required: false },
     type: { type: String, required: true, enum: ['urgent-task', 'refund-approval', 'voucher-approval', 'registration-approval'] },
     description: { type: String, required: true },

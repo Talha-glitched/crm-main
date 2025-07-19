@@ -58,6 +58,6 @@ export const verifySuperAdmin = (req, res, next) => {
         });
     } catch (err) {
         next(createError(500, err.message));
-        console.log("error"+ error.message);
+        console.log("error" + error.message);
     }
 };

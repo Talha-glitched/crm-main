@@ -24,7 +24,18 @@ import projectRoutes from './routes/project.js'
 import societyRoutes from './routes/society.js'
 import inventoryRoutes from './routes/inventory.js'
 import fbleadroutes from './routes/fbleadroute.js'
+import { validateSendGridConfig } from './utils/sendEmail.js'
+
 dotenv.config()
+
+// Debug environment variables
+console.log('🔧 Server startup - Environment variables check:');
+const sendGridConfig = validateSendGridConfig();
+console.log('SendGrid configuration:', sendGridConfig);
+console.log('GITHUB_TOKEN exists:', !!process.env.GITHUB_TOKEN);
+console.log('JWT_SECRET exists:', !!process.env.JWT_SECRET);
+console.log('PORT:', process.env.PORT || 4000);
+
 const app = express()
 const CONNECTION_URL = "mongodb+srv://rana_talha16:the.edgyguy23@cluster0.rykde1s.mongodb.net/"
 // const CONNECTION_URL = process.env.COMPASS_URL
@@ -32,6 +43,20 @@ const CONNECTION_URL = "mongodb+srv://rana_talha16:the.edgyguy23@cluster0.rykde1
 const PORT = process.env.PORT || 4000
 app.use(cors())
 app.use(express.json())
+
+// Request logging middleware
+app.use((req, res, next) => {
+    console.log('🌐 Incoming request:', {
+        method: req.method,
+        url: req.url,
+        body: req.body,
+        headers: {
+            'content-type': req.headers['content-type'],
+            'authtoken': req.headers.authtoken ? 'present' : 'missing'
+        }
+    });
+    next();
+});
 
 // serving static files | images
 const __filename = fileURLToPath(import.meta.url);
@@ -56,23 +81,23 @@ app.use('/api/v1/refund', refundRoutes)
 app.use('/api/v1/voucher', voucherRoutes)
 app.use('/api/v1/deduction', deductionRoutes)
 app.use('/api/v1/trasncript', transcriptRoutes)
-app.use("/api/leadssa", metaleads); 
-app.use("/",fbleadroutes);
+app.use("/api/leadssa", metaleads);
+app.use("/", fbleadroutes);
 app.use((err, req, res, next) => {
     const message = err.message || 'Something went wrong.'
     const status = err.status || 500
     res.status(status).json({ message, status, stack: err.stack })
-    next() 
-})  
- 
+    next()
+})
+
 // app.get('/webhook', (req, res) => {
 //     const VERIFY_TOKEN = process.env.FB_VERIFY_TOKEN;
-  
+
 //     // Facebook verification parameters
 //     const mode = req.query['hub.mode'];
 //     const token = req.query['hub.verify_token'];
 //     const challenge = req.query['hub.challenge'];
-  
+
 //     // Check if mode & token match
 //     if (mode === 'subscribe' && token === VERIFY_TOKEN) {
 //       console.log('Webhook verified successfully!');
